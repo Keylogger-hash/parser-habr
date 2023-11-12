@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_DB=habr
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5432:5432
+    networks:
+      - app_net
+
+
+  parser:
+    build: .
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/habr
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - app_net
+networks:
+  app_net:
+    driver: bridge
