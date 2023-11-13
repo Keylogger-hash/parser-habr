@@ -9,19 +9,30 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
     ports:
-      - 5432:5432
+      - "5432:5432"
     networks:
       - app_net
 
-
-  parser:
-    build: .
-    environment:
-      - DATABASE_URL=postgres://user:password@db:5432/habr
+  django:
+    build:
+      context: .
+      dockerfile: django.Dockerfile
     ports:
       - "8000:8000"
     depends_on:
       - db
+    networks:
+      - app_net
+
+  parser:
+    build:
+      context: .
+      dockerfile: parser.Dockerfile
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/habr
+    depends_on:
+      - db
+      - django
     networks:
       - app_net
 networks:
