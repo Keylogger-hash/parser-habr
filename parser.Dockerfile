@@ -15,4 +15,4 @@ ENV DATABASE_URL=postgres://user:password@db:5432/habr
 #ENV PORT=8000
 
 # Команда запуска
-CMD ["python", "async-parser.py"]
+CMD ["sh","-c","sleep 15 & python async-parser.py"]

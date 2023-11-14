@@ -14,4 +14,4 @@ ENV DATABASE_URL=postgres://user:password@db:5432/habr
 #ENV PORT=8000
 
 # Команда запуска
-CMD ["sh","-c","python manage.py makemigrations && python manage.py migrate && python manage.py loaddata initial_role.json && python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh","-c","sleep 10 && python manage.py makemigrations && python manage.py migrate && python manage.py loaddata initial_role.json && python manage.py runserver 0.0.0.0:8000"]
